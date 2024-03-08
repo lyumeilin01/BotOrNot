@@ -13,7 +13,7 @@ search_url = "https://api.twitter.com/2/tweets/search/recent"
 
 # '(from:twitterdev -is:retweet) OR #twitterdev'
 #query_params = {'query': '#movie','tweet.fields': 'author_id', 'max_results':10, 'tweet.fields':'public_metrics', 'expansions':'author_id', 'user.fields':'description'}
-query_params = {'query': '#movie -is:quote -is:retweet -has:links lang:en', 'tweet.fields': 'author_id', 'max_results': 30}
+query_params = {'query': '#movie -is:quote -is:retweet -has:links lang:en', 'tweet.fields': 'author_id', 'max_results': 100}
 
 def bearer_oauth(r):
     """

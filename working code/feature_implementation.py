@@ -5,6 +5,7 @@ from profanity_check import predict, predict_prob
 
 import emoji
 import unicodedata
+import re
 
 
 # Profanity check
@@ -48,8 +49,44 @@ print(get_emoji_meaning(unicode_to_character(star_emoji)))
 # now need to extract the unicodes from the tweets
 
 # use a for loop to get \u..\u until space 
+def find_third_backslash_index(text):
+    count = 0
+    for index, char in enumerate(text):
+        if char == "\\":
+            count += 1
+            if count == 3:
+                return index
+    return -1  # Return -1 if the third backslash is not found
 
-import re
-sentence = 'Hi I am \ud83d\udd25!!'
-print(sentence.split())
-print(sentence.split()[3])
+sentence = 'Hi I am \ud83d \u2b50!!'
+s = sentence.encode('unicode-escape').decode('ascii')
+print(s.split()[3])
+
+
+emoji_codes = []
+for word in s.split():
+   if word[0:2]== "\\u":
+      clean_code = re.sub(r'[!.,?;\'\":]', '', word)
+      if clean_code.count("\\u")==2:
+        print(clean_code) 
+        emoji_codes.append(clean_code)
+      elif clean_code.count("\\u")==4:
+        clean_code_1 = clean_code[0:find_third_backslash_index(clean_code)]
+        clean_code_2 = clean_code[find_third_backslash_index(clean_code):]       
+        print(clean_code)
+        emoji_codes.append(clean_code_1).append(clean_code_2)
+         
+print(emoji_codes)
+for code in emoji_codes:    
+  code = emoji_codes[0].replace("\\\\", "\\")
+  print(code)
+  unicode = code.encode().decode('unicode-escape')
+  # print(unicode_to_character(unicode))
+get_emoji_meaning("\ud83d")
+
+
+
+
+
+
+
