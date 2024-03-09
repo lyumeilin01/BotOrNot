@@ -56,8 +56,8 @@ df_mixed_masked = df_mixed_truth[["Index", "Tweet Content"]]
 df_mixed_masked = df_mixed_masked.drop_duplicates(subset=["Tweet Content"])
 df_mixed_truth = df_mixed_truth.drop_duplicates(subset = ["Tweet Content"])
 print(len(df_mixed_truth))
-df_mixed_truth.to_excel("mixed_tweet_answer_unique.xlsx", index=False)
-df_mixed_masked.to_excel("mixed_tweet_unique.xlsx", index = False)
+df_mixed_truth.to_csv("mixed_tweet_answer_unique.csv", index=False)
+df_mixed_masked.to_csv("mixed_tweet_unique.csv", index = False, encoding='utf-8')
 
 print(df_mixed_masked['Tweet Content'].nunique())
 
