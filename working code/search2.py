@@ -13,7 +13,8 @@ search_url = "https://api.twitter.com/2/tweets/search/recent"
 
 # '(from:twitterdev -is:retweet) OR #twitterdev'
 #query_params = {'query': '#movie','tweet.fields': 'author_id', 'max_results':10, 'tweet.fields':'public_metrics', 'expansions':'author_id', 'user.fields':'description'}
-query_params = {'query': '#movie -is:quote -is:retweet -has:links lang:en', 'tweet.fields': 'author_id', 'max_results': 100}
+query_params = {'query': '#NHL -is:quote -is:retweet -has:links -has:mentions lang:en', 'tweet.fields': 'author_id,created_at', 'max_results': 100}
+#make sure no space between author_id and created_at, just comma
 
 def bearer_oauth(r):
     """
@@ -34,8 +35,9 @@ def connect_to_endpoint(url, params):
 
 def main():
     json_response = connect_to_endpoint(search_url, query_params)
-    with open ("tweet_data2.json", "w") as jfile:
+    with open ("user_data.json", "w") as jfile:
         json.dump(json_response, jfile, indent=4)
+        
 
 
 if __name__ == "__main__":
